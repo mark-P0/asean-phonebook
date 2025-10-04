@@ -7,7 +7,7 @@ class Program:
         while True:
             clear_screen()
 
-            menu = Menu.from_prompt()
+            menu = Menu()
             MenuAction.from_selection(menu.selection)
 
 

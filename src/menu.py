@@ -1,9 +1,11 @@
 from enum import IntEnum
 import sys
-from pydantic import BaseModel, ValidationError
+
+from src.lib.pydantic import enum_input
+from src.lib.python.enum import EnumValues
 
 
-class MenuSelection(IntEnum):
+class MenuSelection(EnumValues, IntEnum):
     STORE = 1
     EDIT = 2
     SEARCH = 3
@@ -29,22 +31,13 @@ class MenuItems:
         return "\n".join(f"[{selection}] {text}" for selection, text in self.items)
 
 
-class Menu(BaseModel):
-    selection: MenuSelection
+class Menu:
+    def __init__(self):
+        prompt = "\n".join([str(MenuItems()), "Selection: "])
 
-    @classmethod
-    def from_prompt(cls, prompt_text="Selection: "):
-        while True:
-            try:
-                print(MenuItems())
-                selection = input(prompt_text)
-
-                return cls.model_validate(dict(selection=selection))
-            except ValidationError:
-                print("Invalid selection, please try again.")
-                print()
+        self.selection = enum_input(message=prompt, enum=MenuSelection)
 
 
 if __name__ == "__main__":
-    menu = Menu.from_prompt()
-    print(f"{menu=}")
+    menu = Menu()
+    print(f"{menu.selection=}")
