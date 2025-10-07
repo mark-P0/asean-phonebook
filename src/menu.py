@@ -1,9 +1,7 @@
 from enum import IntEnum
-import sys
 
 from src.lib.pydantic import enum_input
 from src.lib.python.enum import EnumValues
-from src.phonebook import Phonebook
 
 
 class MenuSelection(EnumValues, IntEnum):
@@ -11,19 +9,6 @@ class MenuSelection(EnumValues, IntEnum):
     EDIT = 2
     SEARCH = 3
     EXIT = 4
-
-
-class MenuAction:
-    @classmethod
-    def from_selection(cls, selection: MenuSelection, *, phonebook: Phonebook):
-        if selection == MenuSelection.STORE:
-            phonebook.store_new_entry()
-
-        if selection == MenuSelection.EDIT:
-            phonebook.init_edit_entry()
-
-        if selection == MenuSelection.EXIT:
-            sys.exit(1)
 
 
 class MenuItems:
