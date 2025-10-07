@@ -1,7 +1,7 @@
 from enum import Enum, IntEnum
 from pydantic import BaseModel
 
-from src.lib.pydantic import enum_input
+from src.lib.pydantic import enum_input, typed_input
 from src.lib.python.enum import EnumValues
 
 
@@ -50,8 +50,8 @@ class PhonebookEntry(BaseModel):
             enum=PhonebookEntryCountryCode,
         )
 
-        area_code = input("Enter area code: ")
-        number = input("Enter number: ")
+        area_code = typed_input(message="Enter area code: ", _type=int)
+        number = typed_input(message="Enter number: ", _type=int)
 
         model_dict = dict(
             student_number=student_number,
