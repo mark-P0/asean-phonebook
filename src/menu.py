@@ -3,7 +3,7 @@ import sys
 
 from src.lib.pydantic import enum_input
 from src.lib.python.enum import EnumValues
-from src.phonebook import Phonebook, PhonebookEntry, PhonebookEntryRepeat
+from src.phonebook import Phonebook
 
 
 class MenuSelection(EnumValues, IntEnum):
@@ -15,27 +15,9 @@ class MenuSelection(EnumValues, IntEnum):
 
 class MenuAction:
     @classmethod
-    def store_to_phonebook(cls, *, phonebook: Phonebook):
-        entry = PhonebookEntry.from_prompt()
-        phonebook.entries.append(entry)
-
-        answer = enum_input(
-            message="Do you want to enter another entry [Y/N]? ",
-            enum=PhonebookEntryRepeat,
-        )
-
-        if answer == PhonebookEntryRepeat.YES:
-            print()
-            return cls.store_to_phonebook(
-                phonebook=phonebook,
-            )
-
-    @classmethod
     def from_selection(cls, selection: MenuSelection, *, phonebook: Phonebook):
         if selection == MenuSelection.STORE:
-            cls.store_to_phonebook(
-                phonebook=phonebook,
-            )
+            phonebook.store_new_entry()
 
         if selection == MenuSelection.EXIT:
             sys.exit(1)

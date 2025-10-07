@@ -70,6 +70,19 @@ class PhonebookEntry(BaseModel):
 class Phonebook(BaseModel):
     entries: list[PhonebookEntry] = []
 
+    def store_new_entry(self):
+        entry = PhonebookEntry.from_prompt()
+        self.entries.append(entry)
+
+        answer = enum_input(
+            message="Do you want to enter another entry [Y/N]? ",
+            enum=PhonebookEntryRepeat,
+        )
+
+        if answer == PhonebookEntryRepeat.YES:
+            print()
+            return self.store_new_entry()
+
 
 if __name__ == "__main__":
     entry = PhonebookEntry.from_prompt()
