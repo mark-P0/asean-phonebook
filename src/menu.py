@@ -19,6 +19,9 @@ class MenuAction:
         if selection == MenuSelection.STORE:
             phonebook.store_new_entry()
 
+        if selection == MenuSelection.EDIT:
+            phonebook.init_edit_entry()
+
         if selection == MenuSelection.EXIT:
             sys.exit(1)
 

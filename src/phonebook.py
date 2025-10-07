@@ -1,6 +1,8 @@
 from enum import Enum, IntEnum
 from pydantic import BaseModel
 
+from src.lib.terminal import clear_screen
+from src.lib.inflect import possessive_pronoun, with_indefinite_article
 from src.lib.pydantic import enum_input, typed_input
 from src.lib.python.enum import EnumValues
 
@@ -23,6 +25,113 @@ class PhonebookEntryRepeat(EnumValues, Enum):
     NO = "N"
 
 
+class PhonebookEntryEditSelection(EnumValues, IntEnum):
+    STUDENT_NUMBER = 1
+    SURNAME = 2
+    GENDER = 3
+    OCCUPATION = 4
+    COUNTRY_CODE = 5
+    AREA_CODE = 6
+    PHONE_NUMBER = 7
+    NONE = 8
+
+
+class PhonebookEntryEditItems:
+    rows = 3
+    cols = 3
+
+    items = [
+        (PhonebookEntryEditSelection.STUDENT_NUMBER, "Student number"),
+        (PhonebookEntryEditSelection.SURNAME, "Surname"),
+        (PhonebookEntryEditSelection.GENDER, "Gender"),
+        (PhonebookEntryEditSelection.OCCUPATION, "Occupation"),
+        (PhonebookEntryEditSelection.COUNTRY_CODE, "Country code"),
+        (PhonebookEntryEditSelection.AREA_CODE, "Area code"),
+        (PhonebookEntryEditSelection.PHONE_NUMBER, "Phone number"),
+        (PhonebookEntryEditSelection.NONE, "None - Back to main menu"),
+    ]
+
+    def __str__(self) -> str:
+        matrix_lines = self.__get_formatted_matrix_lines()
+
+        lines = [
+            "Which of the following information do you wish to change?",
+            "",
+            *matrix_lines,
+        ]
+
+        return "\n".join(lines)
+
+    def __gen_matrix_col_items(self, col_idx: int):
+        for row_idx in range(self.rows):
+            idx = row_idx + (self.rows * col_idx)
+
+            try:
+                yield self.items[idx]
+            except IndexError:
+                yield None
+
+    def __gen_matrix_cols(self):
+        for col_idx in range(self.cols):
+            yield [*self.__gen_matrix_col_items(col_idx)]
+
+    def __format_item(self, item: tuple[PhonebookEntryEditSelection, str] | None):
+        if item is None:
+            return ""
+
+        selection, label = item
+
+        return f"[{selection.value}] {label}"
+
+    def __gen_formatted_matrix_cols(self):
+        for col in self.__gen_matrix_cols():
+            formatted_items = [self.__format_item(item) for item in col]
+            longest_item = max(formatted_items, key=len)
+            longest_item_len = len(longest_item)
+
+            formatted_col = [item.ljust(longest_item_len) for item in formatted_items]
+
+            yield formatted_col
+
+    def __get_matrix(self):
+        matrix = [*zip(*self.__gen_formatted_matrix_cols())]
+
+        return matrix
+
+    def __get_formatted_matrix_lines(self, *, sep=" "):
+        matrix = self.__get_matrix()
+        lines = [sep.join(row) for row in matrix]
+
+        return lines
+
+
+#     def __matrix_idx(self, row_idx: int, col_idx: int):
+#         return row_idx + (self.rows * col_idx)
+#
+#     def __formatted_matrix_item(self, row_idx: int, col_idx: int):
+#         matrix_idx = self.__matrix_idx(row_idx, col_idx)
+#
+#         try:
+#             ct, item = self.items[matrix_idx]
+#
+#             return f"[{ct}] {item}"
+#         except IndexError:
+#             return ""
+#
+#     def __padded_matrix_items(self):
+#         matrix = [
+#             [
+#                 self.__formatted_matrix_item(row_idx, col_idx)
+#                 for col_idx in range(self.cols)
+#             ]
+#             for row_idx in range(self.rows)
+#         ]
+#
+#         cols = [*zip(*matrix)]
+#
+#         print(cols)
+
+
 class PhonebookEntry(BaseModel):
     student_number: str
     surname: str
@@ -32,6 +141,24 @@ class PhonebookEntry(BaseModel):
     country_code: PhonebookEntryCountryCode
     area_code: int
     number: int
+
+    def __str__(self) -> str:
+        occupation = with_indefinite_article(self.occupation)
+        pronoun = (
+            possessive_pronoun("feminine")
+            if self.gender == PhonebookEntryGender.FEMALE
+            else possessive_pronoun("masculine")
+        )
+        number = "-".join(
+            str(num) for num in (self.country_code.value, self.area_code, self.number)
+        )
+
+        lines = [
+            f"Here is the information about {self.student_number}:",
+            f"{self.first_name} {self.surname} is {occupation}. {pronoun.title()} number is {number}",
+        ]
+
+        return "\n".join(lines)
 
     @classmethod
     def from_prompt(cls):
@@ -67,8 +194,27 @@ class PhonebookEntry(BaseModel):
         return cls.model_validate(model_dict)
 
 
+sample_entry: None = PhonebookEntry(
+    student_number="2004-56",
+    surname="Lee",
+    first_name="Sukarno",
+    occupation="Doctor",
+    gender=PhonebookEntryGender.MALE,
+    country_code=PhonebookEntryCountryCode.PHILIPPINES,
+    area_code=2,
+    number=4567890,
+)
+
+
 class Phonebook(BaseModel):
-    entries: list[PhonebookEntry] = []
+    entries: list[PhonebookEntry] = [sample_entry]
+
+    def get_entry_from_student_number(self, student_number: str):
+        for entry in self.entries:
+            if entry.student_number == student_number:
+                return entry
+
+        return None
 
     def store_new_entry(self):
         entry = PhonebookEntry.from_prompt()
@@ -78,15 +224,44 @@ class Phonebook(BaseModel):
             message="Do you want to enter another entry [Y/N]? ",
             enum=PhonebookEntryRepeat,
         )
+        print()
 
         if answer == PhonebookEntryRepeat.YES:
-            print()
             return self.store_new_entry()
+
+    def init_edit_entry(self):
+        student_number = input("Enter student number: ")
+
+        entry = self.get_entry_from_student_number(student_number)
+
+        if entry is None:
+            print("Student does not exist.")
+            input("Press Enter to continue...")
+
+            return
+
+        return self.edit_entry(entry)
+
+    def edit_entry(self, entry: PhonebookEntry):
+        clear_screen()
+
+        print(entry)
+        print(PhonebookEntryEditItems())
+        selection = enum_input(
+            message="Enter choice: ",
+            enum=PhonebookEntryEditSelection,
+        )
+
+        _: int = input(f"{selection=}")
+
+        return self.edit_entry(entry)
 
 
 if __name__ == "__main__":
-    entry = PhonebookEntry.from_prompt()
-    print(f"{entry=}")
+    print(PhonebookEntryEditItems())
+
+    # entry = PhonebookEntry.from_prompt()
+    # print(f"{entry=}")
 
     # gender = enum_input(
     #     message="Enter gender (M for male, F for female): ",
