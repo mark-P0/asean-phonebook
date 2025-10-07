@@ -217,17 +217,18 @@ class Phonebook(BaseModel):
         return None
 
     def store_new_entry(self):
-        entry = PhonebookEntry.from_prompt()
-        self.entries.append(entry)
+        while True:
+            entry = PhonebookEntry.from_prompt()
+            self.entries.append(entry)
 
-        answer = enum_input(
-            message="Do you want to enter another entry [Y/N]? ",
-            enum=PhonebookEntryRepeat,
-        )
-        print()
+            answer = enum_input(
+                message="Do you want to enter another entry [Y/N]? ",
+                enum=PhonebookEntryRepeat,
+            )
+            print()
 
-        if answer == PhonebookEntryRepeat.YES:
-            return self.store_new_entry()
+            if answer == PhonebookEntryRepeat.NO:
+                break
 
     def init_edit_entry(self):
         student_number = input("Enter student number: ")
@@ -243,18 +244,17 @@ class Phonebook(BaseModel):
         return self.edit_entry(entry)
 
     def edit_entry(self, entry: PhonebookEntry):
-        clear_screen()
+        while True:
+            clear_screen()
 
-        print(entry)
-        print(PhonebookEntryEditItems())
-        selection = enum_input(
-            message="Enter choice: ",
-            enum=PhonebookEntryEditSelection,
-        )
+            print(entry)
+            print(PhonebookEntryEditItems())
+            selection = enum_input(
+                message="Enter choice: ",
+                enum=PhonebookEntryEditSelection,
+            )
 
-        _: int = input(f"{selection=}")
-
-        return self.edit_entry(entry)
+            _: int = input(f"{selection=}")
 
 
 if __name__ == "__main__":
