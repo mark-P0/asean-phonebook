@@ -194,20 +194,8 @@ class PhonebookEntry(BaseModel):
         return cls.model_validate(model_dict)
 
 
-sample_entry: None = PhonebookEntry(
-    student_number="2004-56",
-    surname="Lee",
-    first_name="Sukarno",
-    occupation="Doctor",
-    gender=PhonebookEntryGender.MALE,
-    country_code=PhonebookEntryCountryCode.PHILIPPINES,
-    area_code=2,
-    number=4567890,
-)
-
-
 class Phonebook(BaseModel):
-    entries: list[PhonebookEntry] = [sample_entry]
+    entries: list[PhonebookEntry] = []
 
     def get_entry_from_student_number(self, student_number: str):
         for entry in self.entries:
