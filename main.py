@@ -1,5 +1,5 @@
 from src.lib.terminal import clear_screen
-from src.menu import Menu, MenuSelection
+from src.core.menu import Menu, MenuSelection
 from src.core.phonebook import (
     Phonebook,
     PhonebookEntry,
