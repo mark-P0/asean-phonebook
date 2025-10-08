@@ -1,6 +1,6 @@
 from lib.terminal import clear_screen
 from menu import Menu, MenuSelection
-from core.phonebook import Phonebook
+from phonebook import Phonebook
 
 
 class Program:

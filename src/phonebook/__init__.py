@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-from core.phonebook.entry import (
+from phonebook.entry import (
     PhonebookEntry,
     PhonebookEntryCountryCode,
     PhonebookEntryEditItems,

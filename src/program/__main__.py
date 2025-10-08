@@ -1,5 +1,5 @@
-from core.phonebook import Phonebook
-from core.phonebook.entry import (
+from phonebook import Phonebook
+from phonebook.entry import (
     PhonebookEntry,
     PhonebookEntryCountryCode,
     PhonebookEntryGender,
