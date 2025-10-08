@@ -1,7 +1,7 @@
 from enum import Enum, IntEnum
 from pydantic import BaseModel
 
-from lib.python.iterables import transpose_2d
+from src.lib.python.iterables import transpose_2d
 from src.lib.terminal import clear_screen
 from src.lib.inflect import possessive_pronoun, with_indefinite_article
 from src.lib.pydantic import enum_input, typed_input
