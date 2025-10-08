@@ -1,6 +1,7 @@
 from enum import Enum, IntEnum
 from pydantic import BaseModel
 
+from lib.python.iterables import transpose_2d
 from src.lib.terminal import clear_screen
 from src.lib.inflect import possessive_pronoun, with_indefinite_article
 from src.lib.pydantic import enum_input, typed_input
@@ -93,13 +94,13 @@ class PhonebookEntryEditItems:
 
             yield formatted_col
 
-    def __get_matrix(self):
-        matrix = [*zip(*self.__gen_formatted_matrix_cols())]
+    def __gen_matrix(self):
+        matrix = transpose_2d(self.__gen_formatted_matrix_cols())
 
         return matrix
 
     def __get_formatted_matrix_lines(self, *, sep=" "):
-        matrix = self.__get_matrix()
+        matrix = self.__gen_matrix()
         lines = [sep.join(row) for row in matrix]
 
         return lines
