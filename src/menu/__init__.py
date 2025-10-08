@@ -31,8 +31,3 @@ class Menu:
             message="Selection: ",
             enum=MenuSelection,
         )
-
-
-if __name__ == "__main__":
-    menu = Menu()
-    print(f"{menu.selection=}")

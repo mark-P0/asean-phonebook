@@ -1,5 +1,5 @@
 from lib.terminal import clear_screen
-from core.menu import Menu, MenuSelection
+from menu import Menu, MenuSelection
 from core.phonebook import Phonebook
 
 
