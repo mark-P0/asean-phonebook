@@ -104,32 +104,13 @@ class PhonebookEntryEditItems:
 
         return lines
 
+    @classmethod
+    def get_label_from_selection(cls, selection: PhonebookEntryEditSelection):
+        for item in cls.items:
+            if item[0] == selection:
+                return item[1]
 
-#     def __matrix_idx(self, row_idx: int, col_idx: int):
-#         return row_idx + (self.rows * col_idx)
-#
-#     def __formatted_matrix_item(self, row_idx: int, col_idx: int):
-#         matrix_idx = self.__matrix_idx(row_idx, col_idx)
-#
-#         try:
-#             ct, item = self.items[matrix_idx]
-#
-#             return f"[{ct}] {item}"
-#         except IndexError:
-#             return ""
-#
-#     def __padded_matrix_items(self):
-#         matrix = [
-#             [
-#                 self.__formatted_matrix_item(row_idx, col_idx)
-#                 for col_idx in range(self.cols)
-#             ]
-#             for row_idx in range(self.rows)
-#         ]
-#
-#         cols = [*zip(*matrix)]
-#
-#         print(cols)
+        return None
 
 
 class PhonebookEntry(BaseModel):
@@ -242,7 +223,37 @@ class Phonebook(BaseModel):
                 enum=PhonebookEntryEditSelection,
             )
 
-            _: int = input(f"{selection=}")
+            if selection == PhonebookEntryEditSelection.STUDENT_NUMBER:
+                entry.student_number = input("Enter new student number: ")
+
+            if selection == PhonebookEntryEditSelection.SURNAME:
+                entry.surname = input("Enter new surname: ")
+
+            if selection == PhonebookEntryEditSelection.GENDER:
+                entry.gender = enum_input(
+                    message="Enter new gender (M for male, F for female): ",
+                    enum=PhonebookEntryGender,
+                )
+
+            if selection == PhonebookEntryEditSelection.OCCUPATION:
+                entry.occupation = input("Enter new occupation: ")
+
+            if selection == PhonebookEntryEditSelection.COUNTRY_CODE:
+                entry.country_code = enum_input(
+                    message="Enter new country code: ",
+                    enum=PhonebookEntryCountryCode,
+                )
+
+            if selection == PhonebookEntryEditSelection.AREA_CODE:
+                entry.area_code = typed_input(
+                    message="Enter new area code: ", _type=int
+                )
+
+            if selection == PhonebookEntryEditSelection.PHONE_NUMBER:
+                entry.number = typed_input(message="Enter new number: ", _type=int)
+
+            if selection == PhonebookEntryEditSelection.NONE:
+                break
 
 
 if __name__ == "__main__":
