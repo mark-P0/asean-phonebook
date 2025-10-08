@@ -1,5 +1,7 @@
 from enum import IntEnum
 
+from pydantic import BaseModel
+
 from lib.python.iterables import transpose_2d
 from lib.python.enum import EnumValues
 
@@ -15,19 +17,48 @@ class PhonebookEntryEditMenuSelection(EnumValues, IntEnum):
     NONE = 8
 
 
+class PhonebookEntryEditMenuItem(BaseModel):
+    selection: PhonebookEntryEditMenuSelection
+    label: str
+
+
 class PhonebookEntryEditMenuItems:
     rows = 3
     cols = 3
 
     items = [
-        (PhonebookEntryEditMenuSelection.STUDENT_NUMBER, "Student number"),
-        (PhonebookEntryEditMenuSelection.SURNAME, "Surname"),
-        (PhonebookEntryEditMenuSelection.GENDER, "Gender"),
-        (PhonebookEntryEditMenuSelection.OCCUPATION, "Occupation"),
-        (PhonebookEntryEditMenuSelection.COUNTRY_CODE, "Country code"),
-        (PhonebookEntryEditMenuSelection.AREA_CODE, "Area code"),
-        (PhonebookEntryEditMenuSelection.PHONE_NUMBER, "Phone number"),
-        (PhonebookEntryEditMenuSelection.NONE, "None - Back to main menu"),
+        PhonebookEntryEditMenuItem(
+            selection=PhonebookEntryEditMenuSelection.STUDENT_NUMBER,
+            label="Student number",
+        ),
+        PhonebookEntryEditMenuItem(
+            selection=PhonebookEntryEditMenuSelection.SURNAME,
+            label="Surname",
+        ),
+        PhonebookEntryEditMenuItem(
+            selection=PhonebookEntryEditMenuSelection.GENDER,
+            label="Gender",
+        ),
+        PhonebookEntryEditMenuItem(
+            selection=PhonebookEntryEditMenuSelection.OCCUPATION,
+            label="Occupation",
+        ),
+        PhonebookEntryEditMenuItem(
+            selection=PhonebookEntryEditMenuSelection.COUNTRY_CODE,
+            label="Country code",
+        ),
+        PhonebookEntryEditMenuItem(
+            selection=PhonebookEntryEditMenuSelection.AREA_CODE,
+            label="Area code",
+        ),
+        PhonebookEntryEditMenuItem(
+            selection=PhonebookEntryEditMenuSelection.PHONE_NUMBER,
+            label="Phone number",
+        ),
+        PhonebookEntryEditMenuItem(
+            selection=PhonebookEntryEditMenuSelection.NONE,
+            label="None - Back to main menu",
+        ),
     ]
 
     def __str__(self) -> str:
@@ -54,13 +85,11 @@ class PhonebookEntryEditMenuItems:
         for col_idx in range(self.cols):
             yield [*self.__gen_matrix_col_items(col_idx)]
 
-    def __format_item(self, item: tuple[PhonebookEntryEditMenuSelection, str] | None):
+    def __format_item(self, item: PhonebookEntryEditMenuItem | None):
         if item is None:
             return ""
 
-        selection, label = item
-
-        return f"[{selection.value}] {label}"
+        return f"[{item.selection.value}] {item.label}"
 
     def __gen_formatted_matrix_cols(self):
         for col in self.__gen_matrix_cols():
@@ -86,8 +115,8 @@ class PhonebookEntryEditMenuItems:
     @classmethod
     def get_label_from_selection(cls, selection: PhonebookEntryEditMenuSelection):
         for item in cls.items:
-            if item[0] == selection:
-                return item[1]
+            if item.selection == selection:
+                return item.label
 
         return None
 

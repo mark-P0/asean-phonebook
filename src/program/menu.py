@@ -1,5 +1,7 @@
 from enum import IntEnum
 
+from pydantic import BaseModel
+
 from lib.pydantic import enum_input
 from lib.python.enum import EnumValues
 
@@ -11,16 +13,37 @@ class ProgramMenuSelection(EnumValues, IntEnum):
     EXIT = 4
 
 
+class ProgramMenuItem(BaseModel):
+    selection: ProgramMenuSelection
+    label: str
+
+
 class ProgramMenuItems:
     items = [
-        (ProgramMenuSelection.STORE, "Store to ASEAN phonebook"),
-        (ProgramMenuSelection.EDIT, "Edit entry in ASEAN phonebook"),
-        (ProgramMenuSelection.SEARCH, "Search ASEAN phonebook by country"),
-        (ProgramMenuSelection.EXIT, "Exit"),
+        ProgramMenuItem(
+            selection=ProgramMenuSelection.STORE,
+            label="Store to ASEAN phonebook",
+        ),
+        ProgramMenuItem(
+            selection=ProgramMenuSelection.EDIT,
+            label="Edit entry in ASEAN phonebook",
+        ),
+        ProgramMenuItem(
+            selection=ProgramMenuSelection.SEARCH,
+            label="Search ASEAN phonebook by country",
+        ),
+        ProgramMenuItem(
+            selection=ProgramMenuSelection.EXIT,
+            label="Exit",
+        ),
     ]
 
     def __str__(self) -> str:
-        return "\n".join(f"[{selection}] {text}" for selection, text in self.items)
+        return "\n".join(self.__gen_formatted_items())
+
+    def __gen_formatted_items(self):
+        for item in self.items:
+            yield f"[{item.selection}] {item.label}"
 
 
 class ProgramMenu:
