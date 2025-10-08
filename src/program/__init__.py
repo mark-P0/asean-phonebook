@@ -1,5 +1,5 @@
 from lib.terminal import clear_screen
-from menu import Menu, MenuSelection
+from program.menu import ProgramMenu, ProgramMenuSelection
 from phonebook import Phonebook
 
 
@@ -9,17 +9,17 @@ class Program:
         while True:
             clear_screen()
 
-            menu = Menu()
+            menu = ProgramMenu()
             print()
 
-            if menu.selection == MenuSelection.STORE:
+            if menu.selection == ProgramMenuSelection.STORE:
                 phonebook.store_new_entry()
 
-            if menu.selection == MenuSelection.EDIT:
+            if menu.selection == ProgramMenuSelection.EDIT:
                 phonebook.init_edit_entry()
 
-            if menu.selection == MenuSelection.SEARCH:
+            if menu.selection == ProgramMenuSelection.SEARCH:
                 _: int = input("[NOT_IMPLEMENTED] Press Enter to continue...")
 
-            if menu.selection == MenuSelection.EXIT:
+            if menu.selection == ProgramMenuSelection.EXIT:
                 break
