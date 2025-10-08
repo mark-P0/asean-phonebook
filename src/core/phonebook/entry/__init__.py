@@ -1,10 +1,10 @@
 from enum import Enum, IntEnum
 from pydantic import BaseModel
 
-from src.lib.python.iterables import transpose_2d
-from src.lib.inflect import possessive_pronoun, with_indefinite_article
-from src.lib.pydantic import enum_input, typed_input
-from src.lib.python.enum import EnumValues
+from lib.python.iterables import transpose_2d
+from lib.inflect import possessive_pronoun, with_indefinite_article
+from lib.pydantic import enum_input, typed_input
+from lib.python.enum import EnumValues
 
 
 class PhonebookEntryGender(EnumValues, Enum):

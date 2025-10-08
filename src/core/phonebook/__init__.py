@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-from src.core.phonebook.entry import (
+from core.phonebook.entry import (
     PhonebookEntry,
     PhonebookEntryCountryCode,
     PhonebookEntryEditItems,
@@ -8,8 +8,8 @@ from src.core.phonebook.entry import (
     PhonebookEntryGender,
     PhonebookEntryRepeat,
 )
-from src.lib.terminal import clear_screen
-from src.lib.pydantic import enum_input, typed_input
+from lib.terminal import clear_screen
+from lib.pydantic import enum_input, typed_input
 
 
 class Phonebook(BaseModel):

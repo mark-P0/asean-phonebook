@@ -1,7 +1,7 @@
 from enum import IntEnum
 
-from src.lib.pydantic import enum_input
-from src.lib.python.enum import EnumValues
+from lib.pydantic import enum_input
+from lib.python.enum import EnumValues
 
 
 class MenuSelection(EnumValues, IntEnum):

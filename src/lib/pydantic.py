@@ -1,7 +1,7 @@
 from enum import IntEnum
 import typing as T
 from pydantic import ValidationError, create_model
-from src.lib.python.enum import EnumValues
+from lib.python.enum import EnumValues
 
 
 def typed_input[TType](
