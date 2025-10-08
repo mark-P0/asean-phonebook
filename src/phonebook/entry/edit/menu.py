@@ -2,8 +2,14 @@ from enum import IntEnum
 
 from pydantic import BaseModel
 
+from lib.pydantic import enum_input
 from lib.python.iterables import transpose_2d
 from lib.python.enum import EnumValues
+from phonebook.entry import (
+    PhonebookEntry,
+    PhonebookEntryCountryCode,
+    PhonebookEntryGender,
+)
 
 
 class PhonebookEntryEditMenuSelection(EnumValues, IntEnum):
@@ -121,5 +127,29 @@ class PhonebookEntryEditMenuItems:
         return None
 
 
+class PhonebookEntryEditMenu:
+    def __init__(self, entry: PhonebookEntry):
+        print(entry)
+        print(PhonebookEntryEditMenuItems())
+
+        self.selection = enum_input(
+            message="Enter choice: ",
+            enum=PhonebookEntryEditMenuSelection,
+        )
+
+
 if __name__ == "__main__":
-    print(PhonebookEntryEditMenuItems())
+    menu = PhonebookEntryEditMenu(
+        entry=PhonebookEntry(
+            student_number="2004-56",
+            surname="Lee",
+            first_name="Sukarno",
+            occupation="Doctor",
+            gender=PhonebookEntryGender.MALE,
+            country_code=PhonebookEntryCountryCode.PHILIPPINES,
+            area_code=2,
+            number=4567890,
+        )
+    )
+
+    print(f"{menu.selection=}")
