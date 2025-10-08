@@ -3,10 +3,12 @@ from pydantic import BaseModel
 from phonebook.entry import (
     PhonebookEntry,
     PhonebookEntryCountryCode,
-    PhonebookEntryEditItems,
-    PhonebookEntryEditSelection,
     PhonebookEntryGender,
     PhonebookEntryRepeat,
+)
+from phonebook.entry.edit.menu import (
+    PhonebookEntryEditMenuItems,
+    PhonebookEntryEditMenuSelection,
 )
 from lib.terminal import clear_screen
 from lib.pydantic import enum_input, typed_input
@@ -54,40 +56,40 @@ class Phonebook(BaseModel):
             clear_screen()
 
             print(entry)
-            print(PhonebookEntryEditItems())
+            print(PhonebookEntryEditMenuItems())
             selection = enum_input(
                 message="Enter choice: ",
-                enum=PhonebookEntryEditSelection,
+                enum=PhonebookEntryEditMenuSelection,
             )
 
-            if selection == PhonebookEntryEditSelection.STUDENT_NUMBER:
+            if selection == PhonebookEntryEditMenuSelection.STUDENT_NUMBER:
                 entry.student_number = input("Enter new student number: ")
 
-            if selection == PhonebookEntryEditSelection.SURNAME:
+            if selection == PhonebookEntryEditMenuSelection.SURNAME:
                 entry.surname = input("Enter new surname: ")
 
-            if selection == PhonebookEntryEditSelection.GENDER:
+            if selection == PhonebookEntryEditMenuSelection.GENDER:
                 entry.gender = enum_input(
                     message="Enter new gender (M for male, F for female): ",
                     enum=PhonebookEntryGender,
                 )
 
-            if selection == PhonebookEntryEditSelection.OCCUPATION:
+            if selection == PhonebookEntryEditMenuSelection.OCCUPATION:
                 entry.occupation = input("Enter new occupation: ")
 
-            if selection == PhonebookEntryEditSelection.COUNTRY_CODE:
+            if selection == PhonebookEntryEditMenuSelection.COUNTRY_CODE:
                 entry.country_code = enum_input(
                     message="Enter new country code: ",
                     enum=PhonebookEntryCountryCode,
                 )
 
-            if selection == PhonebookEntryEditSelection.AREA_CODE:
+            if selection == PhonebookEntryEditMenuSelection.AREA_CODE:
                 entry.area_code = typed_input(
                     message="Enter new area code: ", _type=int
                 )
 
-            if selection == PhonebookEntryEditSelection.PHONE_NUMBER:
+            if selection == PhonebookEntryEditMenuSelection.PHONE_NUMBER:
                 entry.number = typed_input(message="Enter new number: ", _type=int)
 
-            if selection == PhonebookEntryEditSelection.NONE:
+            if selection == PhonebookEntryEditMenuSelection.NONE:
                 break

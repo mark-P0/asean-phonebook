@@ -1,14 +1,8 @@
-from phonebook.entry import (
-    PhonebookEntryEditItems,
-)
+from phonebook.entry import PhonebookEntry
 
 
-print(PhonebookEntryEditItems())
-
-"""
 entry = PhonebookEntry.from_prompt()
 print(f"{entry=}")
-"""
 
 """
 gender = enum_input(
