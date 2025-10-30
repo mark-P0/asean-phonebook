@@ -9,16 +9,16 @@ from asean_phonebook.phonebook.entry.entry import (
 )
 from asean_phonebook.phonebook.entry.mocks import MockPhonebookEntry
 from asean_phonebook.phonebook.phonebook import Phonebook
-from asean_phonebook.phonebook.search.menu import (
-    PhonebookSearchMenu,
-    PhonebookSearchMenuItems,
-    PhonebookSearchMenuSelection,
+from asean_phonebook.program.menu.search import (
+    SearchProgramMenu,
+    SearchProgramMenuItems,
+    SearchProgramMenuSelection,
 )
 
 
-class PhonebookSearchResult(BaseModel):
+class SearchProgramResult(BaseModel):
     phonebook: Phonebook
-    selections: list[PhonebookSearchMenuSelection]
+    selections: list[SearchProgramMenuSelection]
 
     def __str__(self):
         lines = [
@@ -31,7 +31,7 @@ class PhonebookSearchResult(BaseModel):
     @property
     def _result_header(self):
         selection_labels = [
-            *PhonebookSearchMenuItems.gen_labels_from_selections(self.selections)
+            *SearchProgramMenuItems.gen_labels_from_selections(self.selections)
         ]
 
         return f"Here are the students from {oxford_join(selection_labels)}:"
@@ -57,34 +57,30 @@ class PhonebookSearchResult(BaseModel):
                 yield country_code
 
 
-class PhonebookSearch:
-    def __init__(self, *, phonebook: Phonebook):
-        self.run(phonebook)
+def run_search_program(*, phonebook: Phonebook):
+    clear_screen()
 
-    def run(self, phonebook: Phonebook):
-        clear_screen()
+    menu = SearchProgramMenu()
+    print()
 
-        menu = PhonebookSearchMenu()
-        print()
+    result = SearchProgramResult(
+        phonebook=phonebook,
+        selections=menu.selections,
+    )
+    print(result)
+    print()
 
-        result = PhonebookSearchResult(
-            phonebook=phonebook,
-            selections=menu.selections,
-        )
-        print(result)
-        print()
-
-        input("Press Enter to continue...")
+    input("Press Enter to continue...")
 
 
 if __name__ == "__main__":
-    # test = PhonebookSearchMenuSelection.ALL
+    # test = SearchProgramMenuSelection.ALL
     # print(f"{test=}")
     # print(f"{test.name=}")
     # print(f"{(test.name in PhonebookEntryCountryCode)=}")
     # print(f"{PhonebookEntryCountryCode[test.name]=}")
 
-    # selections = [*PhonebookSearchMenuSelection]
+    # selections = [*SearchProgramMenuSelection]
     # print(f"{selections=}")
     # country_codes = [*gen_country_codes_from_selections(selections)]
     # print(f"{country_codes=}")
@@ -98,10 +94,10 @@ if __name__ == "__main__":
 
     phonebook = Phonebook(entries=entries)
 
-    result = PhonebookSearchResult(
+    result = SearchProgramResult(
         phonebook=phonebook,
-        selections=[*PhonebookSearchMenuSelection],
+        selections=[*SearchProgramMenuSelection],
     )
     print(result)
 
-    PhonebookSearch(phonebook=phonebook)
+    run_search_program(phonebook=phonebook)

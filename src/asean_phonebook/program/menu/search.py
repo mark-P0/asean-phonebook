@@ -4,7 +4,7 @@ from asean_phonebook.lib.pydantic import enum_input
 from asean_phonebook.lib.python.enum import EnumValues
 
 
-class PhonebookSearchMenuSelection(EnumValues, IntEnum):
+class SearchProgramMenuSelection(EnumValues, IntEnum):
     PHILIPPINES = 1
     THAILAND = 2
     SINGAPORE = 3
@@ -14,39 +14,39 @@ class PhonebookSearchMenuSelection(EnumValues, IntEnum):
     NO_MORE = 0
 
 
-class PhonebookSearchMenuItem(BaseModel):
-    selection: PhonebookSearchMenuSelection
+class SearchProgramMenuItem(BaseModel):
+    selection: SearchProgramMenuSelection
     label: str
 
 
-class PhonebookSearchMenuItems:
+class SearchProgramMenuItems:
     items = [
-        PhonebookSearchMenuItem(
-            selection=PhonebookSearchMenuSelection.PHILIPPINES,
+        SearchProgramMenuItem(
+            selection=SearchProgramMenuSelection.PHILIPPINES,
             label="Philippines",
         ),
-        PhonebookSearchMenuItem(
-            selection=PhonebookSearchMenuSelection.THAILAND,
+        SearchProgramMenuItem(
+            selection=SearchProgramMenuSelection.THAILAND,
             label="Thailand",
         ),
-        PhonebookSearchMenuItem(
-            selection=PhonebookSearchMenuSelection.SINGAPORE,
+        SearchProgramMenuItem(
+            selection=SearchProgramMenuSelection.SINGAPORE,
             label="Singapore",
         ),
-        PhonebookSearchMenuItem(
-            selection=PhonebookSearchMenuSelection.INDONESIA,
+        SearchProgramMenuItem(
+            selection=SearchProgramMenuSelection.INDONESIA,
             label="Indonesia",
         ),
-        PhonebookSearchMenuItem(
-            selection=PhonebookSearchMenuSelection.MALAYSIA,
+        SearchProgramMenuItem(
+            selection=SearchProgramMenuSelection.MALAYSIA,
             label="Malaysia",
         ),
-        PhonebookSearchMenuItem(
-            selection=PhonebookSearchMenuSelection.ALL,
+        SearchProgramMenuItem(
+            selection=SearchProgramMenuSelection.ALL,
             label="ALL",
         ),
-        PhonebookSearchMenuItem(
-            selection=PhonebookSearchMenuSelection.NO_MORE,
+        SearchProgramMenuItem(
+            selection=SearchProgramMenuSelection.NO_MORE,
             label="No More",
         ),
     ]
@@ -57,21 +57,21 @@ class PhonebookSearchMenuItems:
     @classmethod
     def gen_labels_from_selections(
         cls,
-        selections: list[PhonebookSearchMenuSelection],
+        selections: list[SearchProgramMenuSelection],
     ):
         for item in cls.items:
             if item.selection in selections:
                 yield item.label
 
 
-class PhonebookSearchMenu:
+class SearchProgramMenu:
     def __init__(self):
-        self.selections: list[PhonebookSearchMenuSelection] = []
+        self.selections: list[SearchProgramMenuSelection] = []
 
         self.run()
 
     def __str__(self):
-        lines = ["From which country:", str(PhonebookSearchMenuItems())]
+        lines = ["From which country:", str(SearchProgramMenuItems())]
 
         return "\n".join(lines)
 
@@ -82,16 +82,16 @@ class PhonebookSearchMenu:
             selection_ct = len(self.selections) + 1
             selection = enum_input(
                 message=f"Enter choice {selection_ct}: ",
-                enum=PhonebookSearchMenuSelection,
+                enum=SearchProgramMenuSelection,
             )
 
             self.selections.append(selection)
 
-            if selection == PhonebookSearchMenuSelection.ALL:
-                self.selections = [*PhonebookSearchMenuSelection]  # Select all
+            if selection == SearchProgramMenuSelection.ALL:
+                self.selections = [*SearchProgramMenuSelection]  # Select all
                 break
 
-            if selection == PhonebookSearchMenuSelection.NO_MORE:
+            if selection == SearchProgramMenuSelection.NO_MORE:
                 break
 
         # Normalize selections
@@ -99,14 +99,14 @@ class PhonebookSearchMenu:
             selection
             for selection in set(self.selections)  # Remove duplicates
             # Keep only countries
-            if selection != PhonebookSearchMenuSelection.NO_MORE
-            and selection != PhonebookSearchMenuSelection.ALL
+            if selection != SearchProgramMenuSelection.NO_MORE
+            and selection != SearchProgramMenuSelection.ALL
         ]
 
 
 if __name__ == "__main__":
-    menu = PhonebookSearchMenu()
+    menu = SearchProgramMenu()
     print(f"{menu.selections=}")
 
-    labels = [*PhonebookSearchMenuItems.gen_labels_from_selections(menu.selections)]
+    labels = [*SearchProgramMenuItems.gen_labels_from_selections(menu.selections)]
     print(f"{labels=}")
