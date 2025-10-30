@@ -3,7 +3,7 @@ from asean_phonebook.phonebook.edit import PhonebookEdit
 from asean_phonebook.phonebook.entry.mocks import MockPhonebookEntry
 from asean_phonebook.phonebook.phonebook import Phonebook
 from asean_phonebook.phonebook.search.search import PhonebookSearch
-from asean_phonebook.program.menu import ProgramMenu, ProgramMenuSelection
+from asean_phonebook.program.menu.program import ProgramMenu, ProgramMenuSelection
 from asean_phonebook.program.store import run_store_program
 
 
