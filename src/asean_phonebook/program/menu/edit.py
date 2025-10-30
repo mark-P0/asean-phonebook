@@ -11,7 +11,7 @@ from asean_phonebook.phonebook.entry.entry import (
 from asean_phonebook.phonebook.entry.mocks import MockPhonebookEntry
 
 
-class PhonebookEntryEditMenuSelection(EnumValues, IntEnum):
+class EditEntryProgramMenuSelection(EnumValues, IntEnum):
     STUDENT_NUMBER = 1
     SURNAME = 2
     GENDER = 3
@@ -22,46 +22,46 @@ class PhonebookEntryEditMenuSelection(EnumValues, IntEnum):
     NONE = 8
 
 
-class PhonebookEntryEditMenuItem(BaseModel):
-    selection: PhonebookEntryEditMenuSelection
+class EditEntryProgramMenuItem(BaseModel):
+    selection: EditEntryProgramMenuSelection
     label: str
 
 
-class PhonebookEntryEditMenuItems:
+class EditEntryProgramMenuItems:
     rows = 3
     cols = 3
 
     items = [
-        PhonebookEntryEditMenuItem(
-            selection=PhonebookEntryEditMenuSelection.STUDENT_NUMBER,
+        EditEntryProgramMenuItem(
+            selection=EditEntryProgramMenuSelection.STUDENT_NUMBER,
             label="Student number",
         ),
-        PhonebookEntryEditMenuItem(
-            selection=PhonebookEntryEditMenuSelection.SURNAME,
+        EditEntryProgramMenuItem(
+            selection=EditEntryProgramMenuSelection.SURNAME,
             label="Surname",
         ),
-        PhonebookEntryEditMenuItem(
-            selection=PhonebookEntryEditMenuSelection.GENDER,
+        EditEntryProgramMenuItem(
+            selection=EditEntryProgramMenuSelection.GENDER,
             label="Gender",
         ),
-        PhonebookEntryEditMenuItem(
-            selection=PhonebookEntryEditMenuSelection.OCCUPATION,
+        EditEntryProgramMenuItem(
+            selection=EditEntryProgramMenuSelection.OCCUPATION,
             label="Occupation",
         ),
-        PhonebookEntryEditMenuItem(
-            selection=PhonebookEntryEditMenuSelection.COUNTRY_CODE,
+        EditEntryProgramMenuItem(
+            selection=EditEntryProgramMenuSelection.COUNTRY_CODE,
             label="Country code",
         ),
-        PhonebookEntryEditMenuItem(
-            selection=PhonebookEntryEditMenuSelection.AREA_CODE,
+        EditEntryProgramMenuItem(
+            selection=EditEntryProgramMenuSelection.AREA_CODE,
             label="Area code",
         ),
-        PhonebookEntryEditMenuItem(
-            selection=PhonebookEntryEditMenuSelection.PHONE_NUMBER,
+        EditEntryProgramMenuItem(
+            selection=EditEntryProgramMenuSelection.PHONE_NUMBER,
             label="Phone number",
         ),
-        PhonebookEntryEditMenuItem(
-            selection=PhonebookEntryEditMenuSelection.NONE,
+        EditEntryProgramMenuItem(
+            selection=EditEntryProgramMenuSelection.NONE,
             label="None - Back to main menu",
         ),
     ]
@@ -90,7 +90,7 @@ class PhonebookEntryEditMenuItems:
         for col_idx in range(self.cols):
             yield [*self.__gen_matrix_col_items(col_idx)]
 
-    def __format_item(self, item: PhonebookEntryEditMenuItem | None):
+    def __format_item(self, item: EditEntryProgramMenuItem | None):
         if item is None:
             return ""
 
@@ -118,7 +118,7 @@ class PhonebookEntryEditMenuItems:
         return lines
 
     @classmethod
-    def get_label_from_selection(cls, selection: PhonebookEntryEditMenuSelection):
+    def get_label_from_selection(cls, selection: EditEntryProgramMenuSelection):
         for item in cls.items:
             if item.selection == selection:
                 return item.label
@@ -126,18 +126,18 @@ class PhonebookEntryEditMenuItems:
         return None
 
 
-class PhonebookEntryEditMenu:
+class EditEntryProgramMenu:
     def __init__(self, entry: PhonebookEntry):
         print(entry)
-        print(PhonebookEntryEditMenuItems())
+        print(EditEntryProgramMenuItems())
 
         self.selection = enum_input(
             message="Enter choice: ",
-            enum=PhonebookEntryEditMenuSelection,
+            enum=EditEntryProgramMenuSelection,
         )
 
 
 if __name__ == "__main__":
-    menu = PhonebookEntryEditMenu(entry=MockPhonebookEntry.SUKARNO_LEE)
+    menu = EditEntryProgramMenu(entry=MockPhonebookEntry.SUKARNO_LEE)
 
     print(f"{menu.selection=}")

@@ -1,8 +1,8 @@
 from asean_phonebook.lib.terminal import clear_screen
-from asean_phonebook.phonebook.edit import PhonebookEdit
 from asean_phonebook.phonebook.entry.mocks import MockPhonebookEntry
 from asean_phonebook.phonebook.phonebook import Phonebook
 from asean_phonebook.phonebook.search.search import PhonebookSearch
+from asean_phonebook.program.edit import run_edit_program
 from asean_phonebook.program.menu.program import ProgramMenu, ProgramMenuSelection
 from asean_phonebook.program.store import run_store_program
 
@@ -18,7 +18,7 @@ def run_program(*, phonebook: Phonebook):
             run_store_program(phonebook=phonebook)
 
         if menu.selection == ProgramMenuSelection.EDIT:
-            PhonebookEdit(phonebook=phonebook)
+            run_edit_program(phonebook=phonebook)
 
         if menu.selection == ProgramMenuSelection.SEARCH:
             PhonebookSearch(phonebook=phonebook)
