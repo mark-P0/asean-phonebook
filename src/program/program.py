@@ -1,7 +1,7 @@
 from lib.terminal import clear_screen
 from phonebook.edit import PhonebookEdit
-from phonebook.entry.search.search import PhonebookEntrySearch
 from phonebook.phonebook import Phonebook
+from phonebook.search.search import PhonebookSearch
 from phonebook.store import PhonebookStore
 from program.menu import ProgramMenu, ProgramMenuSelection
 
@@ -24,7 +24,7 @@ class Program:
                 PhonebookEdit(phonebook=phonebook)
 
             if menu.selection == ProgramMenuSelection.SEARCH:
-                PhonebookEntrySearch(phonebook=phonebook)
+                PhonebookSearch(phonebook=phonebook)
 
             if menu.selection == ProgramMenuSelection.EXIT:
                 break
