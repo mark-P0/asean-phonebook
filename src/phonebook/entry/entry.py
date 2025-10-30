@@ -19,11 +19,6 @@ class PhonebookEntryCountryCode(EnumValues, IntEnum):
     THAILAND = 66
 
 
-class PhonebookEntryRepeat(EnumValues, Enum):
-    YES = "Y"
-    NO = "N"
-
-
 class PhonebookEntry(BaseModel):
     student_number: str
     surname: str

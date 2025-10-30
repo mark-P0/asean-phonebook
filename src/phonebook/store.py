@@ -1,9 +1,17 @@
+from enum import Enum
+
 from lib.pydantic import enum_input
-from phonebook.entry.entry import PhonebookEntry, PhonebookEntryRepeat
+from lib.python.enum import EnumValues
+from phonebook.entry.entry import PhonebookEntry
 from phonebook.phonebook import Phonebook
 
 
-class PhonebookEntryStore:
+class PhonebookStoreRepeat(EnumValues, Enum):
+    YES = "Y"
+    NO = "N"
+
+
+class PhonebookStore:
     def __init__(self, phonebook: Phonebook):
         self.run(phonebook)
 
@@ -14,13 +22,13 @@ class PhonebookEntryStore:
 
             answer = enum_input(
                 message="Do you want to enter another entry [Y/N]? ",
-                enum=PhonebookEntryRepeat,
+                enum=PhonebookStoreRepeat,
             )
             print()
 
-            if answer == PhonebookEntryRepeat.NO:
+            if answer == PhonebookStoreRepeat.NO:
                 break
 
 
 if __name__ == "__main__":
-    PhonebookEntryStore(phonebook=Phonebook())
+    PhonebookStore(phonebook=Phonebook())

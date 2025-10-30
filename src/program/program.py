@@ -1,8 +1,8 @@
 from lib.terminal import clear_screen
 from phonebook.entry.edit.edit import PhonebookEntryEdit
 from phonebook.entry.search.search import PhonebookEntrySearch
-from phonebook.entry.store.store import PhonebookEntryStore
 from phonebook.phonebook import Phonebook
+from phonebook.store import PhonebookStore
 from program.menu import ProgramMenu, ProgramMenuSelection
 
 
@@ -18,7 +18,7 @@ class Program:
             print()
 
             if menu.selection == ProgramMenuSelection.STORE:
-                PhonebookEntryStore(phonebook=phonebook)
+                PhonebookStore(phonebook=phonebook)
 
             if menu.selection == ProgramMenuSelection.EDIT:
                 PhonebookEntryEdit(phonebook=phonebook)
