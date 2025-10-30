@@ -7,8 +7,10 @@ from program.menu import ProgramMenu, ProgramMenuSelection
 
 
 class Program:
-    @classmethod
-    def run(cls, *, phonebook: Phonebook):
+    def __init__(self, *, phonebook: Phonebook):
+        self.run(phonebook)
+
+    def run(self, phonebook: Phonebook):
         while True:
             clear_screen()
 

@@ -11,4 +11,4 @@ entries: None = [
 
 phonebook = Phonebook(entries=entries)
 
-Program().run(phonebook=phonebook)
+Program(phonebook=phonebook)
