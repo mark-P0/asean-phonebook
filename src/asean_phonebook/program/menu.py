@@ -2,8 +2,8 @@ from enum import IntEnum
 
 from pydantic import BaseModel
 
-from lib.pydantic import enum_input
-from lib.python.enum import EnumValues
+from asean_phonebook.lib.pydantic import enum_input
+from asean_phonebook.lib.python.enum import EnumValues
 
 
 class ProgramMenuSelection(EnumValues, IntEnum):

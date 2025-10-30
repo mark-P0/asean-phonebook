@@ -1,4 +1,4 @@
-from phonebook.entry.entry import (
+from asean_phonebook.phonebook.entry.entry import (
     PhonebookEntry,
     PhonebookEntryCountryCode,
     PhonebookEntryGender,

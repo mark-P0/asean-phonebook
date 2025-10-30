@@ -1,5 +1,5 @@
-from phonebook.entry.edit.edit import PhonebookEntryEdit
-from phonebook.phonebook import Phonebook
+from asean_phonebook.phonebook.entry.edit.edit import PhonebookEntryEdit
+from asean_phonebook.phonebook.phonebook import Phonebook
 
 
 class PhonebookEdit:

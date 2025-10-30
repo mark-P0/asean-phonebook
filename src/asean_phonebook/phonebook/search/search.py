@@ -2,14 +2,14 @@ import random
 
 from pydantic import BaseModel
 
-from lib.inflect import oxford_join
-from lib.terminal import clear_screen
-from phonebook.entry.entry import (
+from asean_phonebook.lib.inflect import oxford_join
+from asean_phonebook.lib.terminal import clear_screen
+from asean_phonebook.phonebook.entry.entry import (
     PhonebookEntryCountryCode,
 )
-from phonebook.entry.mocks import MockPhonebookEntry
-from phonebook.phonebook import Phonebook
-from phonebook.search.menu import (
+from asean_phonebook.phonebook.entry.mocks import MockPhonebookEntry
+from asean_phonebook.phonebook.phonebook import Phonebook
+from asean_phonebook.phonebook.search.menu import (
     PhonebookSearchMenu,
     PhonebookSearchMenuItems,
     PhonebookSearchMenuSelection,

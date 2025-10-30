@@ -2,13 +2,13 @@ from enum import IntEnum
 
 from pydantic import BaseModel
 
-from lib.pydantic import enum_input
-from lib.python.enum import EnumValues
-from lib.python.iterables import transpose_2d
-from phonebook.entry.entry import (
+from asean_phonebook.lib.pydantic import enum_input
+from asean_phonebook.lib.python.enum import EnumValues
+from asean_phonebook.lib.python.iterables import transpose_2d
+from asean_phonebook.phonebook.entry.entry import (
     PhonebookEntry,
 )
-from phonebook.entry.mocks import MockPhonebookEntry
+from asean_phonebook.phonebook.entry.mocks import MockPhonebookEntry
 
 
 class PhonebookEntryEditMenuSelection(EnumValues, IntEnum):

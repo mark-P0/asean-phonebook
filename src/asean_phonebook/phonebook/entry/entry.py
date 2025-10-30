@@ -1,9 +1,9 @@
 from enum import Enum, IntEnum
 from pydantic import BaseModel
 
-from lib.inflect import possessive_pronoun, with_indefinite_article
-from lib.pydantic import enum_input, typed_input
-from lib.python.enum import EnumValues
+from asean_phonebook.lib.inflect import possessive_pronoun, with_indefinite_article
+from asean_phonebook.lib.pydantic import enum_input, typed_input
+from asean_phonebook.lib.python.enum import EnumValues
 
 
 class PhonebookEntryGender(EnumValues, Enum):

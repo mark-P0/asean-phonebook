@@ -1,10 +1,10 @@
-from lib.terminal import clear_screen
-from phonebook.edit import PhonebookEdit
-from phonebook.entry.mocks import MockPhonebookEntry
-from phonebook.phonebook import Phonebook
-from phonebook.search.search import PhonebookSearch
-from phonebook.store import PhonebookStore
-from program.menu import ProgramMenu, ProgramMenuSelection
+from asean_phonebook.lib.terminal import clear_screen
+from asean_phonebook.phonebook.edit import PhonebookEdit
+from asean_phonebook.phonebook.entry.mocks import MockPhonebookEntry
+from asean_phonebook.phonebook.phonebook import Phonebook
+from asean_phonebook.phonebook.search.search import PhonebookSearch
+from asean_phonebook.phonebook.store import PhonebookStore
+from asean_phonebook.program.menu import ProgramMenu, ProgramMenuSelection
 
 
 class Program:

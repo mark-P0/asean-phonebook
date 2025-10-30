@@ -1,9 +1,9 @@
 from enum import Enum
 
-from lib.pydantic import enum_input
-from lib.python.enum import EnumValues
-from phonebook.entry.entry import PhonebookEntry
-from phonebook.phonebook import Phonebook
+from asean_phonebook.lib.pydantic import enum_input
+from asean_phonebook.lib.python.enum import EnumValues
+from asean_phonebook.phonebook.entry.entry import PhonebookEntry
+from asean_phonebook.phonebook.phonebook import Phonebook
 
 
 class PhonebookStoreRepeat(EnumValues, Enum):
