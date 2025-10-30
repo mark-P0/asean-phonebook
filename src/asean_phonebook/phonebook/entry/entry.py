@@ -2,7 +2,6 @@ from enum import Enum, IntEnum
 from pydantic import BaseModel
 
 from asean_phonebook.lib.inflect import possessive_pronoun, with_indefinite_article
-from asean_phonebook.lib.pydantic import enum_input, typed_input
 from asean_phonebook.lib.python.enum import EnumValues
 
 
@@ -67,54 +66,6 @@ class PhonebookEntry(BaseModel):
             str(num) for num in (self.country_code.value, self.area_code, self.number)
         )
 
-    @classmethod
-    def from_prompt(cls):
-        student_number = input("Enter student number: ")
-        surname = input("Enter surname: ")
-        first_name = input("Enter first name: ")
-        occupation = input("Enter occupation: ")
-
-        gender = enum_input(
-            message="Enter gender (M for male, F for female): ",
-            enum=PhonebookEntryGender,
-        )
-
-        country_code = enum_input(
-            message="Enter country code: ",
-            enum=PhonebookEntryCountryCode,
-        )
-
-        area_code = typed_input(message="Enter area code: ", _type=int)
-        number = typed_input(message="Enter number: ", _type=int)
-
-        model_dict = dict(
-            student_number=student_number,
-            surname=surname,
-            first_name=first_name,
-            occupation=occupation,
-            gender=gender,
-            country_code=country_code,
-            area_code=area_code,
-            number=number,
-        )
-
-        return cls.model_validate(model_dict)
-
 
 if __name__ == "__main__":
-    entry = PhonebookEntry.from_prompt()
-    print(f"{entry=}")
-
-    """
-    gender = enum_input(
-        message="Enter gender (M for male, F for female): ",
-        enum=PhonebookEntryGender,
-    )
-    print(f"{gender=}")
-
-    country_code = enum_input(
-        message="Enter country code: ",
-        enum=PhonebookEntryCountryCode,
-    )
-    print(f"{country_code=}")
-    """
+    ...

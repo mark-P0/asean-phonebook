@@ -3,8 +3,8 @@ from asean_phonebook.phonebook.edit import PhonebookEdit
 from asean_phonebook.phonebook.entry.mocks import MockPhonebookEntry
 from asean_phonebook.phonebook.phonebook import Phonebook
 from asean_phonebook.phonebook.search.search import PhonebookSearch
-from asean_phonebook.phonebook.store import PhonebookStore
 from asean_phonebook.program.menu import ProgramMenu, ProgramMenuSelection
+from asean_phonebook.program.store import run_store_program
 
 
 class Program:
@@ -19,7 +19,7 @@ class Program:
             print()
 
             if menu.selection == ProgramMenuSelection.STORE:
-                PhonebookStore(phonebook=phonebook)
+                run_store_program(phonebook=phonebook)
 
             if menu.selection == ProgramMenuSelection.EDIT:
                 PhonebookEdit(phonebook=phonebook)
