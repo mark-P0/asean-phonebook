@@ -3,9 +3,9 @@ from enum import IntEnum
 from pydantic import BaseModel
 
 from lib.pydantic import enum_input
-from lib.python.iterables import transpose_2d
 from lib.python.enum import EnumValues
-from phonebook.entry import (
+from lib.python.iterables import transpose_2d
+from phonebook.entry.entry import (
     PhonebookEntry,
 )
 from phonebook.entry.mocks import MockPhonebookEntry

@@ -1,5 +1,4 @@
-from phonebook.entry import PhonebookEntry
-
+from phonebook.entry.entry import PhonebookEntry
 
 entry = PhonebookEntry.from_prompt()
 print(f"{entry=}")

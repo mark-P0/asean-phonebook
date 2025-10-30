@@ -1,6 +1,6 @@
 from lib.pydantic import enum_input
-from phonebook import Phonebook
-from phonebook.entry import PhonebookEntry, PhonebookEntryRepeat
+from phonebook.entry.entry import PhonebookEntry, PhonebookEntryRepeat
+from phonebook.phonebook import Phonebook
 
 
 class PhonebookEntryStore:

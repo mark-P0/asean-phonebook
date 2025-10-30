@@ -4,8 +4,7 @@ from pydantic import BaseModel
 
 from lib.inflect import oxford_join
 from lib.terminal import clear_screen
-from phonebook import Phonebook
-from phonebook.entry import (
+from phonebook.entry.entry import (
     PhonebookEntryCountryCode,
 )
 from phonebook.entry.mocks import MockPhonebookEntry
@@ -14,6 +13,7 @@ from phonebook.entry.search.menu import (
     PhonebookEntrySearchMenuItems,
     PhonebookEntrySearchMenuSelection,
 )
+from phonebook.phonebook import Phonebook
 
 
 class PhonebookEntrySearchResult(BaseModel):

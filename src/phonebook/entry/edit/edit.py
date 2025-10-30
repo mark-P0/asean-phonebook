@@ -1,16 +1,16 @@
-from phonebook import Phonebook
-from phonebook.entry import (
-    PhonebookEntry,
-    PhonebookEntryCountryCode,
-    PhonebookEntryGender,
-)
+from lib.pydantic import enum_input, typed_input
+from lib.terminal import clear_screen
 from phonebook.entry.edit.menu import (
     PhonebookEntryEditMenu,
     PhonebookEntryEditMenuSelection,
 )
-from lib.terminal import clear_screen
-from lib.pydantic import enum_input, typed_input
+from phonebook.entry.entry import (
+    PhonebookEntry,
+    PhonebookEntryCountryCode,
+    PhonebookEntryGender,
+)
 from phonebook.entry.mocks import MockPhonebookEntry
+from phonebook.phonebook import Phonebook
 
 
 class PhonebookEntryEdit:

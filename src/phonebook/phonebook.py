@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-from phonebook.entry import PhonebookEntry
+from phonebook.entry.entry import PhonebookEntry
 
 
 class Phonebook(BaseModel):

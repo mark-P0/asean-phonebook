@@ -1,6 +1,6 @@
-from phonebook import Phonebook
 from phonebook.entry.mocks import MockPhonebookEntry
-from program import Program
+from phonebook.phonebook import Phonebook
+from program.program import Program
 
 entries: None = [
     MockPhonebookEntry.SUKARNO_LEE,
