@@ -10,28 +10,11 @@ from phonebook.entry.entry import (
     PhonebookEntryGender,
 )
 from phonebook.entry.mocks import MockPhonebookEntry
-from phonebook.phonebook import Phonebook
 
 
 class PhonebookEntryEdit:
-    def __init__(self, *, phonebook: Phonebook):
-        entry = self.prompt_entry(phonebook)
-        if entry is None:
-            print("Student does not exist.")
-            input("Press Enter to continue...")
-
-            return
-
+    def __init__(self, *, entry: PhonebookEntry):
         self.run(entry)
-
-    def prompt_entry(self, phonebook: Phonebook):
-        student_number = input("Enter student number: ")
-
-        entry = phonebook.find_entry(
-            student_number=student_number,
-        )
-
-        return entry
 
     def run(self, entry: PhonebookEntry):
         while True:
@@ -73,7 +56,4 @@ class PhonebookEntryEdit:
 
 
 if __name__ == "__main__":
-    entries = [MockPhonebookEntry.SUKARNO_LEE]
-    phonebook = Phonebook(entries=entries)
-
-    PhonebookEntryEdit(phonebook=phonebook)
+    PhonebookEntryEdit(entry=MockPhonebookEntry.SUKARNO_LEE)
