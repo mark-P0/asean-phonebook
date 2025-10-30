@@ -104,3 +104,22 @@ class PhonebookEntry(BaseModel):
         )
 
         return cls.model_validate(model_dict)
+
+
+if __name__ == "__main__":
+    entry = PhonebookEntry.from_prompt()
+    print(f"{entry=}")
+
+    """
+    gender = enum_input(
+        message="Enter gender (M for male, F for female): ",
+        enum=PhonebookEntryGender,
+    )
+    print(f"{gender=}")
+
+    country_code = enum_input(
+        message="Enter country code: ",
+        enum=PhonebookEntryCountryCode,
+    )
+    print(f"{country_code=}")
+    """
