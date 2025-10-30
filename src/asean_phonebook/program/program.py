@@ -7,28 +7,24 @@ from asean_phonebook.program.menu import ProgramMenu, ProgramMenuSelection
 from asean_phonebook.program.store import run_store_program
 
 
-class Program:
-    def __init__(self, *, phonebook: Phonebook):
-        self.run(phonebook)
+def run_program(*, phonebook: Phonebook):
+    while True:
+        clear_screen()
 
-    def run(self, phonebook: Phonebook):
-        while True:
-            clear_screen()
+        menu = ProgramMenu()
+        print()
 
-            menu = ProgramMenu()
-            print()
+        if menu.selection == ProgramMenuSelection.STORE:
+            run_store_program(phonebook=phonebook)
 
-            if menu.selection == ProgramMenuSelection.STORE:
-                run_store_program(phonebook=phonebook)
+        if menu.selection == ProgramMenuSelection.EDIT:
+            PhonebookEdit(phonebook=phonebook)
 
-            if menu.selection == ProgramMenuSelection.EDIT:
-                PhonebookEdit(phonebook=phonebook)
+        if menu.selection == ProgramMenuSelection.SEARCH:
+            PhonebookSearch(phonebook=phonebook)
 
-            if menu.selection == ProgramMenuSelection.SEARCH:
-                PhonebookSearch(phonebook=phonebook)
-
-            if menu.selection == ProgramMenuSelection.EXIT:
-                break
+        if menu.selection == ProgramMenuSelection.EXIT:
+            break
 
 
 if __name__ == "__main__":
@@ -40,4 +36,4 @@ if __name__ == "__main__":
     ]
     phonebook = Phonebook(entries=entries)
 
-    Program(phonebook=phonebook)
+    run_program(phonebook=phonebook)
