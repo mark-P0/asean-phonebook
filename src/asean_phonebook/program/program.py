@@ -1,5 +1,6 @@
 from lib.terminal import clear_screen
 from phonebook.edit import PhonebookEdit
+from phonebook.entry.mocks import MockPhonebookEntry
 from phonebook.phonebook import Phonebook
 from phonebook.search.search import PhonebookSearch
 from phonebook.store import PhonebookStore
@@ -28,3 +29,15 @@ class Program:
 
             if menu.selection == ProgramMenuSelection.EXIT:
                 break
+
+
+if __name__ == "__main__":
+    entries = [
+        MockPhonebookEntry.SUKARNO_LEE,
+        MockPhonebookEntry.JULIANA_DELA_CRUZ,
+        MockPhonebookEntry.SAWADI_KRAP,
+        MockPhonebookEntry.JOHN_SAINT,
+    ]
+    phonebook = Phonebook(entries=entries)
+
+    Program(phonebook=phonebook)
