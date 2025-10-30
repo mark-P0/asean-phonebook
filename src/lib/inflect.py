@@ -26,8 +26,18 @@ def possessive_pronoun(gender: Literal["masculine"] | Literal["feminine"]):
     return pronoun
 
 
-if __name__ == "__main__":
+def oxford_join(words: list[str]):
     p = inflect.engine()
 
+    return p.join(words)
+
+
+if __name__ == "__main__":
     print(possessive_pronoun("masculine"))
     print(possessive_pronoun("feminine"))
+
+    print(f"{oxford_join(list("abcde"))=}")
+    print(f"{oxford_join(list("abc"))=}")
+    print(f"{oxford_join(list("ab"))=}")
+    print(f"{oxford_join(list("a"))=}")
+    print(f"{oxford_join(list(""))=}")

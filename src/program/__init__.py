@@ -1,5 +1,6 @@
 from lib.terminal import clear_screen
 from phonebook.entry.edit.edit import PhonebookEntryEdit
+from phonebook.entry.search.search import PhonebookEntrySearch
 from phonebook.entry.store.store import PhonebookEntryStore
 from program.menu import ProgramMenu, ProgramMenuSelection
 from phonebook import Phonebook
@@ -21,7 +22,7 @@ class Program:
                 PhonebookEntryEdit(phonebook=phonebook)
 
             if menu.selection == ProgramMenuSelection.SEARCH:
-                _: int = input("[NOT_IMPLEMENTED] Press Enter to continue...")
+                PhonebookEntrySearch(phonebook=phonebook)
 
             if menu.selection == ProgramMenuSelection.EXIT:
                 break

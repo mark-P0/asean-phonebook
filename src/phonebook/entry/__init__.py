@@ -35,22 +35,42 @@ class PhonebookEntry(BaseModel):
     number: int
 
     def __str__(self) -> str:
+        return self.as_edit_str
+
+    @property
+    def as_edit_str(self):
+        lines = [
+            f"Here is the information about {self.student_number}:",
+            f"{self.first_name} {self.surname} {self._str_occupation_segment}. {self._str_number_segment}",
+        ]
+
+        return "\n".join(lines)
+
+    @property
+    def as_search_str(self):
+        return f"{self.surname}, {self.first_name}, with student number {self.student_number}, {self._str_occupation_segment}. {self._str_number_segment}"
+
+    @property
+    def _str_occupation_segment(self):
         occupation = with_indefinite_article(self.occupation)
+
+        return f"is {occupation}".lower()
+
+    @property
+    def _str_number_segment(self):
         pronoun = (
             possessive_pronoun("feminine")
             if self.gender == PhonebookEntryGender.FEMALE
             else possessive_pronoun("masculine")
         )
-        number = "-".join(
+
+        return f"{pronoun.title()} number is {self._str_number}"
+
+    @property
+    def _str_number(self):
+        return "-".join(
             str(num) for num in (self.country_code.value, self.area_code, self.number)
         )
-
-        lines = [
-            f"Here is the information about {self.student_number}:",
-            f"{self.first_name} {self.surname} is {occupation}. {pronoun.title()} number is {number}",
-        ]
-
-        return "\n".join(lines)
 
     @classmethod
     def from_prompt(cls):
