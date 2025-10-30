@@ -22,7 +22,7 @@ class PhonebookEntryEdit:
 
             return
 
-        self.loop(entry)
+        self.run(entry)
 
     def prompt_entry(self, phonebook: Phonebook):
         student_number = input("Enter student number: ")
@@ -33,7 +33,7 @@ class PhonebookEntryEdit:
 
         return entry
 
-    def loop(self, entry: PhonebookEntry):
+    def run(self, entry: PhonebookEntry):
         while True:
             clear_screen()
 

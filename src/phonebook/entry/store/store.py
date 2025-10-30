@@ -5,9 +5,9 @@ from phonebook.phonebook import Phonebook
 
 class PhonebookEntryStore:
     def __init__(self, phonebook: Phonebook):
-        self.loop(phonebook)
+        self.run(phonebook)
 
-    def loop(self, phonebook: Phonebook):
+    def run(self, phonebook: Phonebook):
         while True:
             entry = PhonebookEntry.from_prompt()
             phonebook.entries.append(entry)
