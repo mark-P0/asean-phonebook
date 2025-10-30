@@ -10,6 +10,7 @@ from phonebook.entry.edit.menu import (
 )
 from lib.terminal import clear_screen
 from lib.pydantic import enum_input, typed_input
+from phonebook.entry.mocks import MockPhonebookEntry
 
 
 class PhonebookEntryEdit:
@@ -72,19 +73,7 @@ class PhonebookEntryEdit:
 
 
 if __name__ == "__main__":
-    PhonebookEntryEdit(
-        phonebook=Phonebook(
-            entries=[
-                PhonebookEntry(
-                    student_number="2004-56",
-                    surname="Lee",
-                    first_name="Sukarno",
-                    occupation="Doctor",
-                    gender=PhonebookEntryGender.MALE,
-                    country_code=PhonebookEntryCountryCode.PHILIPPINES,
-                    area_code=2,
-                    number=4567890,
-                )
-            ]
-        )
-    )
+    entries = [MockPhonebookEntry.SUKARNO_LEE]
+    phonebook = Phonebook(entries=entries)
+
+    PhonebookEntryEdit(phonebook=phonebook)

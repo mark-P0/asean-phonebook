@@ -7,9 +7,8 @@ from lib.python.iterables import transpose_2d
 from lib.python.enum import EnumValues
 from phonebook.entry import (
     PhonebookEntry,
-    PhonebookEntryCountryCode,
-    PhonebookEntryGender,
 )
+from phonebook.entry.mocks import MockPhonebookEntry
 
 
 class PhonebookEntryEditMenuSelection(EnumValues, IntEnum):
@@ -139,17 +138,6 @@ class PhonebookEntryEditMenu:
 
 
 if __name__ == "__main__":
-    menu = PhonebookEntryEditMenu(
-        entry=PhonebookEntry(
-            student_number="2004-56",
-            surname="Lee",
-            first_name="Sukarno",
-            occupation="Doctor",
-            gender=PhonebookEntryGender.MALE,
-            country_code=PhonebookEntryCountryCode.PHILIPPINES,
-            area_code=2,
-            number=4567890,
-        )
-    )
+    menu = PhonebookEntryEditMenu(entry=MockPhonebookEntry.SUKARNO_LEE)
 
     print(f"{menu.selection=}")

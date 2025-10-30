@@ -6,10 +6,9 @@ from lib.inflect import oxford_join
 from lib.terminal import clear_screen
 from phonebook import Phonebook
 from phonebook.entry import (
-    PhonebookEntry,
     PhonebookEntryCountryCode,
-    PhonebookEntryGender,
 )
+from phonebook.entry.mocks import MockPhonebookEntry
 from phonebook.entry.search.menu import (
     PhonebookEntrySearchMenu,
     PhonebookEntrySearchMenuItems,
@@ -91,36 +90,9 @@ if __name__ == "__main__":
     # print(f"{country_codes=}")
 
     entries = [
-        PhonebookEntry(
-            student_number="1991-000",
-            surname="Dela Cruz",
-            first_name="Juliana",
-            occupation="Princess",
-            gender=PhonebookEntryGender.FEMALE,
-            country_code=PhonebookEntryCountryCode.PHILIPPINES,
-            area_code=6,
-            number=678123890,
-        ),
-        PhonebookEntry(
-            student_number="1999-890",
-            surname="Krap",
-            first_name="Sawadi",
-            occupation="Sorcerer",
-            gender=PhonebookEntryGender.MALE,
-            country_code=PhonebookEntryCountryCode.THAILAND,
-            area_code=8,
-            number=1234567,
-        ),
-        PhonebookEntry(
-            student_number="2000-123",
-            surname="Saint",
-            first_name="John",
-            occupation="Doctor",
-            gender=PhonebookEntryGender.MALE,
-            country_code=PhonebookEntryCountryCode.PHILIPPINES,
-            area_code=2,
-            number=9998765,
-        ),
+        MockPhonebookEntry.JULIANA_DELA_CRUZ,
+        MockPhonebookEntry.SAWADI_KRAP,
+        MockPhonebookEntry.JOHN_SAINT,
     ]
     random.shuffle(entries)
 
