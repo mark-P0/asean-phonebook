@@ -1,4 +1,5 @@
-from enum import IntEnum
+from enum import Enum, IntEnum
+from pprint import pformat
 import typing as T
 from pydantic import ValidationError, create_model
 from asean_phonebook.lib.python.enum import EnumValues
@@ -35,19 +36,22 @@ def typed_input[TType](
             print()
 
 
-def enum_input[TEnum: EnumValues](
+def enum_input[TEnum: Enum](
     *,
     enum: type[TEnum],
     message: str | None = None,
     invalid_input_message: str | None = None,
 ):
     model_name = enum.__name__ + "Input"
+    enum_value_mapping = {member.value: member.name for member in enum}
 
     if message is None:
-        message = f"Enter one of {enum.values()}: "
+        message = f"Enter one of:\n{pformat(enum_value_mapping)}"
 
     if invalid_input_message is None:
-        invalid_input_message = f"Invalid input — please enter one of: {enum.values()}"
+        invalid_input_message = (
+            f"Invalid input — please enter one of:\n{pformat(enum_value_mapping)}"
+        )
 
     return typed_input(
         model_name=model_name,
@@ -63,8 +67,11 @@ if __name__ == "__main__":
         SOMETHING = 1
         ANOTHER = 2
 
+    # example = enum_input(message="Enter example: ", enum=Example)
+    # print(f"{example=} {type(example)=}")
+
+    # typed = typed_input(_type=int)
+    # print(f"{typed=} {type(typed)=}")
+
     example = enum_input(message="Enter example: ", enum=Example)
     print(f"{example=} {type(example)=}")
-
-    typed = typed_input(_type=int)
-    print(f"{typed=} {type(typed)=}")
