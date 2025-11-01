@@ -3,15 +3,12 @@ from enum import IntEnum
 from pydantic import BaseModel
 
 from asean_phonebook.lib.pydantic import enum_input
-from asean_phonebook.lib.python.enum import EnumValues
 from asean_phonebook.lib.python.iterables import transpose_2d
-from asean_phonebook.phonebook.entry.entry import (
-    PhonebookEntry,
-)
+from asean_phonebook.phonebook.entry.entry import PhonebookEntry
 from asean_phonebook.phonebook.entry.mocks import MockPhonebookEntry
 
 
-class EditEntryProgramMenuSelection(EnumValues, IntEnum):
+class EditEntryProgramMenuSelection(IntEnum):
     STUDENT_NUMBER = 1
     SURNAME = 2
     GENDER = 3

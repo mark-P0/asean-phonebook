@@ -2,7 +2,6 @@ from enum import Enum
 
 
 from asean_phonebook.lib.pydantic import enum_input, typed_input
-from asean_phonebook.lib.python.enum import EnumValues
 from asean_phonebook.phonebook.entry.entry import (
     PhonebookEntry,
     PhonebookEntryCountryCode,
@@ -11,7 +10,7 @@ from asean_phonebook.phonebook.entry.entry import (
 from asean_phonebook.phonebook.phonebook import Phonebook
 
 
-class StoreProgramRepeat(EnumValues, Enum):
+class StoreProgramRepeat(Enum):
     YES = "Y"
     NO = "N"
 

@@ -1,10 +1,9 @@
 from enum import IntEnum
 from pydantic import BaseModel
 from asean_phonebook.lib.pydantic import enum_input
-from asean_phonebook.lib.python.enum import EnumValues
 
 
-class SearchProgramMenuSelection(EnumValues, IntEnum):
+class SearchProgramMenuSelection(IntEnum):
     PHILIPPINES = 1
     THAILAND = 2
     SINGAPORE = 3

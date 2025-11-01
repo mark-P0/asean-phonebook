@@ -2,15 +2,14 @@ from enum import Enum, IntEnum
 from pydantic import BaseModel
 
 from asean_phonebook.lib.inflect import possessive_pronoun, with_indefinite_article
-from asean_phonebook.lib.python.enum import EnumValues
 
 
-class PhonebookEntryGender(EnumValues, Enum):
+class PhonebookEntryGender(Enum):
     MALE = "M"
     FEMALE = "F"
 
 
-class PhonebookEntryCountryCode(EnumValues, IntEnum):
+class PhonebookEntryCountryCode(IntEnum):
     MALAYSIA = 60
     INDONESIA = 62
     PHILIPPINES = 63

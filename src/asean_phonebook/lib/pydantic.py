@@ -2,7 +2,6 @@ from enum import Enum, IntEnum
 from pprint import pformat
 import typing as T
 from pydantic import ValidationError, create_model
-from asean_phonebook.lib.python.enum import EnumValues
 
 
 def typed_input[TType](
@@ -63,7 +62,7 @@ def enum_input[TEnum: Enum](
 
 if __name__ == "__main__":
 
-    class Example(EnumValues, IntEnum):
+    class Example(IntEnum):
         SOMETHING = 1
         ANOTHER = 2
 

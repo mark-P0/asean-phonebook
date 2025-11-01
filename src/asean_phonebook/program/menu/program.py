@@ -3,10 +3,9 @@ from enum import IntEnum
 from pydantic import BaseModel
 
 from asean_phonebook.lib.pydantic import enum_input
-from asean_phonebook.lib.python.enum import EnumValues
 
 
-class ProgramMenuSelection(EnumValues, IntEnum):
+class ProgramMenuSelection(IntEnum):
     STORE = 1
     EDIT = 2
     SEARCH = 3
